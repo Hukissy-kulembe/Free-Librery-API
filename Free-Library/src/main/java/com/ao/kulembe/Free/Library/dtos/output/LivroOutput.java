@@ -1,6 +1,7 @@
 package com.ao.kulembe.Free.Library.dtos.output;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 public record LivroOutput(
         Long id,
@@ -11,9 +12,8 @@ public record LivroOutput(
         String idioma,
         String sinopse,
         String editora,
-        String[] generos,
-        String[] autores,
-        String[] usuarios,
+        Set<String> generos,
+        Set<String> autores,
         byte[] capa,
         byte[] pdf
 ) {
