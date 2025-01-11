@@ -11,7 +11,7 @@ public interface EditoraService {
     EditoraOutput cadastrarEditora(EditoraInput editoraDtoInput);
     EditoraOutput buscarPorId(Long id);
     void deletarPorId(Long id);
-    EditoraOutput buscarPorTitulo(String titulo);
+    EditoraOutput buscarPorNome(String titulo);
     EditoraOutput atualizar(Long id, EditoraInput editoraDtoInput);
     List<EditoraOutput> listarEditoras();
     List<LivroOutput> buscarLivrosDeUmaEditora(String editora);

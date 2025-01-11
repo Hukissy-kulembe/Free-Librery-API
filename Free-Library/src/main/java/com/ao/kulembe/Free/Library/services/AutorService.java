@@ -5,6 +5,7 @@ import com.ao.kulembe.Free.Library.dtos.output.AutorOutput;
 import com.ao.kulembe.Free.Library.dtos.output.LivroOutput;
 
 import java.util.List;
+import java.util.Set;
 
 public interface AutorService {
 
@@ -14,6 +15,6 @@ public interface AutorService {
     List<AutorOutput> listarTodos();
     AutorOutput buscarPorNome(String nome);
     AutorOutput atualizar(Long id, AutorInput autorDtoInput);
-    List<LivroOutput> buscarLivrosDeUmAutor(String autor);
+    Set<LivroOutput> buscarLivrosDeUmAutor(String autor);
 
 }
