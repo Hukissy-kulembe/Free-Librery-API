@@ -21,7 +21,7 @@ public class Autor {
 
     @Column
     private LocalDate dataDeNascimento;
-    @Column
+    @Column(length = 500)
     private String biografia;
 
     @ManyToMany(mappedBy = "autores", fetch = FetchType.LAZY)
@@ -30,17 +30,15 @@ public class Autor {
     public Autor() {
     }
 
-    public Autor(Long id,
+    public Autor(
                  String nome,
                  String nacionalidade,
                  LocalDate dataDeNascimento,
-                 String biografia, Set<Livro> livro) {
-        this.id = id;
+                 String biografia) {
         this.nome = nome;
         this.nacionalidade = nacionalidade;
         this.dataDeNascimento = dataDeNascimento;
         this.biografia = biografia;
-        this.livro = livro;
     }
 
     public Long getId() {

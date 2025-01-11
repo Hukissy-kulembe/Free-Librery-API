@@ -12,6 +12,9 @@ public class Editora {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true)
+    private String nome;
+
     @Column(name = "nif", nullable = false, length = 25)
     private String nif;
 
@@ -24,14 +27,14 @@ public class Editora {
     public Editora() {
     }
 
-    public Editora(Long id,
+    public Editora(
+                   String nome,
                    String nif,
-                   String endereco,
-                   Set<Livro> livro) {
-        this.id = id;
+                   String endereco
+                   ) {
+        this.nome = nome;
         this.nif = nif;
         this.endereco = endereco;
-        this.livro = livro;
     }
 
     public Long getId() {
@@ -64,5 +67,13 @@ public class Editora {
 
     public void setLivro(Set<Livro> livro) {
         this.livro = livro;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }
