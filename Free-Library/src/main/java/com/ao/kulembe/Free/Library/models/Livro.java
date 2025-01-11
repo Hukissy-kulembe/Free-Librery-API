@@ -62,8 +62,7 @@ public class Livro {
 
     public Livro() {}
 
-    public Livro(Long id,
-                 String titulo,
+    public Livro(String titulo,
                  LocalDate anoDePublicacao,
                  String isbn,
                  int numeroDePagina,
@@ -72,9 +71,7 @@ public class Livro {
                  byte[] capa, byte[] pdf,
                  Editora editora,
                  Set<Autor> autores,
-                 Set<Usuario> usuarios,
                  Set<Genero> generos) {
-        this.id = id;
         this.titulo = titulo;
         this.anoDePublicacao = anoDePublicacao;
         this.isbn = isbn;
@@ -85,7 +82,6 @@ public class Livro {
         this.pdf = pdf;
         this.editora = editora;
         this.autores = autores;
-        this.usuarios = usuarios;
         this.generos = generos;
     }
 
