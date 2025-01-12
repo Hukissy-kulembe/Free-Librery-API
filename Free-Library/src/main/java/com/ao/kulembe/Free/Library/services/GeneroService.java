@@ -4,16 +4,16 @@ import com.ao.kulembe.Free.Library.dtos.input.GeneroInput;
 import com.ao.kulembe.Free.Library.dtos.output.GeneroOutput;
 import com.ao.kulembe.Free.Library.dtos.output.LivroOutput;
 
-import java.util.List;
+import java.util.Set;
 
 public interface GeneroService {
 
     GeneroOutput cadastrar(GeneroInput generoDtoInput);
     GeneroOutput buscarPorId(Long id);
     GeneroOutput buscarPorNome(String nome);
-    List<GeneroOutput> buscarTodos();
+    Set<GeneroOutput> buscarTodos();
     GeneroOutput atualizar(Long id, GeneroInput generoDtoInput);
     void deletarPorId(Long id);
-    List<LivroOutput> buscarLivrosDeUmGenero(String genero);
+    Set<LivroOutput> buscarLivrosDeUmGenero(String genero);
 
 }
