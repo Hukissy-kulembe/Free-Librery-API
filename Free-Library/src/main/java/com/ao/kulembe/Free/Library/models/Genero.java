@@ -22,12 +22,10 @@ public class Genero {
 
     public Genero() {}
 
-    public Genero(Long id, String nome,
-                  String descricao, Set<Livro> livro) {
-        this.id = id;
+    public Genero(String nome,
+                  String descricao) {
         this.nome = nome;
         this.descricao = descricao;
-        this.livro = livro;
     }
 
     public Long getId() {
