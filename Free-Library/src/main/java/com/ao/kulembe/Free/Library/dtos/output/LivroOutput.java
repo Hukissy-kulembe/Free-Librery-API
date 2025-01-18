@@ -13,6 +13,7 @@ public record LivroOutput(
         String sinopse,
         String editora,
         Set<String> generos,
-        Set<String> autores
+        Set<String> autores,
+        byte[] capa
 ) {
 }
