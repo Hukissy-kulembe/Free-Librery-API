@@ -3,19 +3,13 @@ package com.ao.kulembe.Free.Library.services.implementations;
 import com.ao.kulembe.Free.Library.dtos.input.LivroInput;
 import com.ao.kulembe.Free.Library.dtos.output.AutorOutput;
 import com.ao.kulembe.Free.Library.dtos.output.LivroOutput;
-import com.ao.kulembe.Free.Library.models.Autor;
-import com.ao.kulembe.Free.Library.models.Editora;
-import com.ao.kulembe.Free.Library.models.Genero;
-import com.ao.kulembe.Free.Library.models.Livro;
-import com.ao.kulembe.Free.Library.repositories.AutorRepository;
-import com.ao.kulembe.Free.Library.repositories.EditoraRepository;
-import com.ao.kulembe.Free.Library.repositories.GeneroRepository;
-import com.ao.kulembe.Free.Library.repositories.LivroRepository;
+import com.ao.kulembe.Free.Library.models.*;
+import com.ao.kulembe.Free.Library.repositories.*;
 import com.ao.kulembe.Free.Library.services.LivroService;
 import com.ao.kulembe.Free.Library.services.specifications.LivroSpecification;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -24,21 +18,26 @@ import static com.ao.kulembe.Free.Library.services.specifications.LivroSpecifica
 import static com.ao.kulembe.Free.Library.services.uteis.Uteis.autores;
 import static com.ao.kulembe.Free.Library.services.uteis.Uteis.generos;
 
+@Service
 public class LivroImplemente implements LivroService {
 
     private LivroRepository livroRepository;
     private AutorRepository autorRepository;
     private GeneroRepository generoRepository;
     private EditoraRepository editoraRepository;
+    private ArquivoRepository arquivoRepository;
 
     public LivroImplemente(LivroRepository livroRepository,
-                              AutorRepository autorRepository,
-                              GeneroRepository generoRepository,
-                              EditoraRepository editoraRepository) {
+                           AutorRepository autorRepository,
+                           GeneroRepository generoRepository,
+                           EditoraRepository editoraRepository,
+                           ArquivoRepository arquivoRepository
+    ) {
         this.livroRepository = livroRepository;
         this.autorRepository = autorRepository;
         this.generoRepository = generoRepository;
         this.editoraRepository = editoraRepository;
+        this.arquivoRepository = arquivoRepository;
     }
 
     /**
@@ -70,6 +69,12 @@ public class LivroImplemente implements LivroService {
                         () -> new EntityNotFoundException("ID: " + livroInput.editora() + " não encontrado para uma determinada editora")
                 );
 
+        Arquivo arquivo = arquivoRepository
+                .findById(livroInput.livro())
+                .orElseThrow(
+                        () -> new EntityNotFoundException("ID: " + livroInput.livro() + " não encontrado para uma determinada arquivo.")
+                );
+
         Livro livro = new Livro(
                 livroInput.titulo(),
                 livroInput.anoDePublicacao(),
@@ -77,12 +82,10 @@ public class LivroImplemente implements LivroService {
                 livroInput.numeroDePagina(),
                 livroInput.idioma(),
                 livroInput.sinopse(),
-                livroInput.capa(),
-                livroInput.pdf(),
                 editora,
                 autors,
-                generos
-
+                generos,
+                arquivo
         );
 
         var a = livroRepository.save(livro);
@@ -97,9 +100,7 @@ public class LivroImplemente implements LivroService {
                 a.getSinopse(),
                 a.getEditora().getNome(),
                 generos(a.getGeneros()),
-                autores(a.getAutores()),
-                a.getCapa(),
-                a.getPdf()
+                autores(a.getAutores())
         );
         return livroDtoOutput;
     }
@@ -126,9 +127,7 @@ public class LivroImplemente implements LivroService {
                 livro.getSinopse(),
                 livro.getEditora().getNome(),
                 generos(livro.getGeneros()),
-                autores(livro.getAutores()),
-                livro.getCapa(),
-                livro.getPdf()
+                autores(livro.getAutores())
         );
     }
 
@@ -166,9 +165,7 @@ public class LivroImplemente implements LivroService {
                 livro.getSinopse(),
                 livro.getEditora().getNome(),
                 generos(livro.getGeneros()),
-                autores(livro.getAutores()),
-                livro.getCapa(),
-                livro.getPdf()
+                autores(livro.getAutores())
         );
     }
 
@@ -193,9 +190,7 @@ public class LivroImplemente implements LivroService {
                 livro.getSinopse(),
                 livro.getEditora().getNome(),
                 generos(livro.getGeneros()),
-                autores(livro.getAutores()),
-                livro.getCapa(),
-                livro.getPdf()
+                autores(livro.getAutores())
         );
     }
 
@@ -205,7 +200,7 @@ public class LivroImplemente implements LivroService {
      * @return
      */
     @Override
-    public List<LivroOutput> buscarTodos(String titulo, String autor, String genero, String editora) {
+    public Set<LivroOutput> buscarTodos(String titulo, String autor, String genero, String editora) {
         return livroRepository.findAll(LivroSpecification
                         .livroDtoOutputSpecification(titulo)
                         .and(autorLivroEquals(autor)
@@ -222,11 +217,9 @@ public class LivroImplemente implements LivroService {
                         value.getSinopse(),
                         value.getEditora().getNome(),
                         generos(value.getGeneros()),
-                        autores(value.getAutores()),
-                        value.getCapa(),
-                        value.getPdf()
+                        autores(value.getAutores())
                 ))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     /**
@@ -264,7 +257,6 @@ public class LivroImplemente implements LivroService {
 
         livro.setTitulo(livroInput.titulo());
         livro.setAutores(autors);
-        livro.setCapa(livroInput.capa());
         livro.setEditora(editora);
         livro.setGeneros(generos);
         livro.setAnoDePublicacao(livroInput.anoDePublicacao());
@@ -285,9 +277,7 @@ public class LivroImplemente implements LivroService {
                 l.getSinopse(),
                 l.getEditora().getNome(),
                 generos(l.getGeneros()),
-                autores(l.getAutores()),
-                l.getCapa(),
-                l.getPdf()
+                autores(l.getAutores())
         );
     }
 
@@ -298,7 +288,7 @@ public class LivroImplemente implements LivroService {
      * @return
      */
     @Override
-    public List<AutorOutput> listarAutores(String livro) {
+    public Set<AutorOutput> listarAutores(String livro) {
         Livro livros = livroRepository.findByTitulo(livro)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Livro não encontrado para o titulo: " + livro)
@@ -312,7 +302,7 @@ public class LivroImplemente implements LivroService {
                         value.getBiografia(),
                         value.getDataDeNascimento(),
                         value.getNacionalidade()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     /**
@@ -322,7 +312,7 @@ public class LivroImplemente implements LivroService {
      * @return
      */
     @Override
-    public List<LivroOutput> buscarLivrosPorAutor(String nome) {
+    public Set<LivroOutput> buscarLivrosPorAutor(String nome) {
         var autor = autorRepository.findByName(nome)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Nenhum livro associado ao autor: " + nome));
@@ -338,12 +328,10 @@ public class LivroImplemente implements LivroService {
                                 value.getSinopse(),
                                 value.getEditora().getNome(),
                                 generos(value.getGeneros()),
-                                autores(value.getAutores()),
-                                value.getCapa(),
-                                value.getPdf()
+                                autores(value.getAutores())
                         ))
                 .collect(Collectors
-                        .toList());
+                        .toSet());
     }
 
     /**
@@ -353,7 +341,7 @@ public class LivroImplemente implements LivroService {
      * @return
      */
     @Override
-    public List<LivroOutput> buscarLivrosPorGenero(String genero) {
+    public Set<LivroOutput> buscarLivrosPorGenero(String genero) {
         var generos = generoRepository
                 .findByName(genero)
                 .orElseThrow(() -> new EntityNotFoundException("Nenhum livro associado ao autor: " + genero));
@@ -369,12 +357,10 @@ public class LivroImplemente implements LivroService {
                                 value.getSinopse(),
                                 value.getEditora().getNome(),
                                 generos(value.getGeneros()),
-                                autores(value.getAutores()),
-                                value.getCapa(),
-                                value.getPdf()
+                                autores(value.getAutores())
                         ))
                 .collect(Collectors
-                        .toList());
+                        .toSet());
     }
 
 }
