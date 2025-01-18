@@ -134,9 +134,7 @@ public class AutorImplemente implements AutorService {
                         value.getSinopse(),
                         value.getEditora().getNome(),
                         generos(value.getGeneros()),
-                        autores(value.getAutores()),
-                        value.getCapa(),
-                        value.getPdf()
+                        autores(value.getAutores())
                 )).collect(Collectors
                         .toSet());
     }

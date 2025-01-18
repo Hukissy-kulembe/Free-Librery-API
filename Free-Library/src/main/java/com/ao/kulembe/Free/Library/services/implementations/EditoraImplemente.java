@@ -157,9 +157,7 @@ public class EditoraImplemente implements EditoraService {
                         value.getSinopse(),
                         value.getEditora().getNome(),
                         autores(value.getAutores()),
-                        generos(value.getGeneros()),
-                        value.getCapa(),
-                        value.getPdf()
+                        generos(value.getGeneros())
                 )).collect(Collectors
                         .toList());
     }
