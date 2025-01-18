@@ -16,6 +16,9 @@ public class Usuario {
     @Column(nullable = false)
     private String nome;
 
+    @Column(nullable = false, unique = true)
+    private String senha;
+
     @Column(unique = true, length = 30)
     private String email;
     private LocalDate dataNascimento;
@@ -25,16 +28,15 @@ public class Usuario {
 
     public Usuario() {}
 
-    public Usuario(Long id,
+    public Usuario(
                    String nome,
                    String email,
-                   LocalDate dataNascimento,
-                   Set<Livro> livros) {
-        this.id = id;
+                   String senha,
+                   LocalDate dataNascimento) {
         this.nome = nome;
         this.email = email;
+        this.senha = senha;
         this.dataNascimento = dataNascimento;
-        this.livros = livros;
     }
 
     public Long getId() {
@@ -63,6 +65,14 @@ public class Usuario {
 
     public LocalDate getDataNascimento() {
         return dataNascimento;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public void setDataNascimento(LocalDate dataNascimento) {
