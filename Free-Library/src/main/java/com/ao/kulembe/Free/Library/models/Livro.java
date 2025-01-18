@@ -25,12 +25,7 @@ public class Livro {
     @Column(nullable = true)
     private String idioma;
 
-
     private String sinopse;
-    @Column(unique = true, nullable = false)
-    private byte[] capa;
-    @Column(unique = true, nullable = false)
-    private byte[] pdf;
 
     @ManyToOne
     @JoinColumn(name = "editora_id")
@@ -60,6 +55,10 @@ public class Livro {
     )
     private Set<Genero> generos;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "arquivo_id")
+    private Arquivo arquivo;
+
     public Livro() {}
 
     public Livro(String titulo,
@@ -68,21 +67,20 @@ public class Livro {
                  int numeroDePagina,
                  String idioma,
                  String sinopse,
-                 byte[] capa, byte[] pdf,
                  Editora editora,
                  Set<Autor> autores,
-                 Set<Genero> generos) {
+                 Set<Genero> generos,
+                 Arquivo arquivo) {
         this.titulo = titulo;
         this.anoDePublicacao = anoDePublicacao;
         this.isbn = isbn;
         this.numeroDePagina = numeroDePagina;
         this.idioma = idioma;
         this.sinopse = sinopse;
-        this.capa = capa;
-        this.pdf = pdf;
         this.editora = editora;
         this.autores = autores;
         this.generos = generos;
+        this.arquivo = arquivo;
     }
 
     public Long getId() {
@@ -141,22 +139,6 @@ public class Livro {
         this.sinopse = sinopse;
     }
 
-    public byte[] getCapa() {
-        return capa;
-    }
-
-    public void setCapa(byte[] capa) {
-        this.capa = capa;
-    }
-
-    public byte[] getPdf() {
-        return pdf;
-    }
-
-    public void setPdf(byte[] pdf) {
-        this.pdf = pdf;
-    }
-
     public Editora getEditora() {
         return editora;
     }
@@ -187,5 +169,13 @@ public class Livro {
 
     public void setGeneros(Set<Genero> generos) {
         this.generos = generos;
+    }
+
+    public Arquivo getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(Arquivo arquivo) {
+        this.arquivo = arquivo;
     }
 }
