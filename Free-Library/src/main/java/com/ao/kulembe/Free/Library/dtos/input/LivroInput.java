@@ -13,7 +13,6 @@ public record LivroInput(
         Long editora,
         Set<Long> generos,
         Set<Long> autores,
-        byte[] capa,
-        byte[] pdf
+        Long livro
 ) {
 }
