@@ -115,7 +115,8 @@ public class GeneroImplemente implements GeneroService {
                         x.getSinopse(),
                         x.getEditora().getNome(),
                         generos(x.getGeneros()),
-                        autores(x.getAutores())
+                        autores(x.getAutores()),
+                        x.getArquivo().getCapa()
                 )).collect(Collectors.toSet());
     }
 }
