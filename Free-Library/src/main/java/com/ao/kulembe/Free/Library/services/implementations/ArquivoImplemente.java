@@ -23,11 +23,9 @@ public class ArquivoImplemente implements ArquivoService {
     @Override
     public ArquivoOutput salvarArquivo(ArquivoInput arquivoInput) {
         try {
-            MultipartFile capa = arquivoInput.capa();
             MultipartFile arquivo = arquivoInput.arquivo();
 
             Arquivo novoArquivo = new Arquivo(
-                    capa.getBytes(),
                     arquivo.getBytes()
             );
 
@@ -35,7 +33,6 @@ public class ArquivoImplemente implements ArquivoService {
 
             return new ArquivoOutput(
                     arquivoSalvo.getId(),
-                    arquivoSalvo.getCapa(),
                     arquivoSalvo.getArquivo()
             );
 
@@ -51,7 +48,6 @@ public class ArquivoImplemente implements ArquivoService {
                 .orElseThrow(() -> new EntityNotFoundException("Arquivo não encontrado para o ID: " + id));
         return new ArquivoOutput(
                 arquivo.getId(),
-                arquivo.getCapa(),
                 arquivo.getArquivo()
         );
     }

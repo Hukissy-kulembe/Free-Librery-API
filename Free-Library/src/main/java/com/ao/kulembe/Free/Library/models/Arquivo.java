@@ -9,7 +9,6 @@ public class Arquivo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private byte[] capa;
     private byte[] arquivo;
 
     @OneToOne(mappedBy = "arquivo")
@@ -18,8 +17,7 @@ public class Arquivo {
     public Arquivo() {
     }
 
-    public Arquivo( byte[] capa, byte[] arquivo) {
-        this.capa = capa;
+    public Arquivo(byte[] arquivo) {
         this.arquivo = arquivo;
     }
 
@@ -39,11 +37,4 @@ public class Arquivo {
         this.arquivo = arquivo;
     }
 
-    public byte[] getCapa() {
-        return capa;
-    }
-
-    public void setCapa(byte[] capa) {
-        this.capa = capa;
-    }
 }
