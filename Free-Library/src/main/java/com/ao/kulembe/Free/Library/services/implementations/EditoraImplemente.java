@@ -158,7 +158,7 @@ public class EditoraImplemente implements EditoraService {
                         value.getEditora().getNome(),
                         autores(value.getAutores()),
                         generos(value.getGeneros()),
-                        value.getArquivo().getCapa()
+                        value.getCapaUrl()
                 )).collect(Collectors
                         .toList());
     }

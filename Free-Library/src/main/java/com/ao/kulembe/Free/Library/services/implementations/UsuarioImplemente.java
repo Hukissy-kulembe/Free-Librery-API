@@ -123,7 +123,7 @@ public class UsuarioImplemente implements UsuarioService {
                         livro.getEditora().getNome(),
                         generos(livro.getGeneros()),
                         autores(livro.getAutores()),
-                        livro.getArquivo().getCapa()
+                        livro.getCapaUrl()
                 )).collect(Collectors.toSet());
     }
 }
