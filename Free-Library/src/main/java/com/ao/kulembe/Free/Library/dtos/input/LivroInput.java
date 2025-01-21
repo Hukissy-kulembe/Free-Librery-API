@@ -13,6 +13,7 @@ public record LivroInput(
         Long editora,
         Set<Long> generos,
         Set<Long> autores,
+        String capaUrl,
         Long livro
 ) {
 }

@@ -14,6 +14,6 @@ public record LivroOutput(
         String editora,
         Set<String> generos,
         Set<String> autores,
-        byte[] capa
+        String capaUrl
 ) {
 }

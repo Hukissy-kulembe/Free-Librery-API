@@ -26,6 +26,8 @@ public class Livro {
     private String idioma;
 
     private String sinopse;
+    @Column(unique = true, nullable = false)
+    private String capaUrl;
 
     @ManyToOne
     @JoinColumn(name = "editora_id")
@@ -70,6 +72,7 @@ public class Livro {
                  Editora editora,
                  Set<Autor> autores,
                  Set<Genero> generos,
+                 String capaUrl,
                  Arquivo arquivo) {
         this.titulo = titulo;
         this.anoDePublicacao = anoDePublicacao;
@@ -80,6 +83,7 @@ public class Livro {
         this.editora = editora;
         this.autores = autores;
         this.generos = generos;
+        this.capaUrl = capaUrl;
         this.arquivo = arquivo;
     }
 
@@ -177,5 +181,14 @@ public class Livro {
 
     public void setArquivo(Arquivo arquivo) {
         this.arquivo = arquivo;
+    }
+
+
+    public String getCapaUrl() {
+        return capaUrl;
+    }
+
+    public void setCapaUrl(String capaUrl) {
+        this.capaUrl = capaUrl;
     }
 }

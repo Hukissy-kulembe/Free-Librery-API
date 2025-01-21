@@ -85,6 +85,7 @@ public class LivroImplemente implements LivroService {
                 editora,
                 autors,
                 generos,
+                livroInput.capaUrl(),
                 arquivo
         );
 
@@ -101,7 +102,7 @@ public class LivroImplemente implements LivroService {
                 a.getEditora().getNome(),
                 generos(a.getGeneros()),
                 autores(a.getAutores()),
-                a.getArquivo().getCapa()
+                a.getCapaUrl()
         );
         return livroDtoOutput;
     }
@@ -129,7 +130,7 @@ public class LivroImplemente implements LivroService {
                 livro.getEditora().getNome(),
                 generos(livro.getGeneros()),
                 autores(livro.getAutores()),
-                livro.getArquivo().getCapa()
+                livro.getCapaUrl()
         );
     }
 
@@ -168,7 +169,7 @@ public class LivroImplemente implements LivroService {
                 livro.getEditora().getNome(),
                 generos(livro.getGeneros()),
                 autores(livro.getAutores()),
-                livro.getArquivo().getCapa()
+                livro.getCapaUrl()
         );
     }
 
@@ -194,7 +195,7 @@ public class LivroImplemente implements LivroService {
                 livro.getEditora().getNome(),
                 generos(livro.getGeneros()),
                 autores(livro.getAutores()),
-                livro.getArquivo().getCapa()
+                livro.getCapaUrl()
         );
     }
 
@@ -222,7 +223,7 @@ public class LivroImplemente implements LivroService {
                         value.getEditora().getNome(),
                         generos(value.getGeneros()),
                         autores(value.getAutores()),
-                        value.getArquivo().getCapa()
+                        value.getCapaUrl()
                 ))
                 .collect(Collectors.toSet());
     }
@@ -283,7 +284,7 @@ public class LivroImplemente implements LivroService {
                 l.getEditora().getNome(),
                 generos(l.getGeneros()),
                 autores(l.getAutores()),
-                l.getArquivo().getCapa()
+                l.getCapaUrl()
         );
     }
 
@@ -335,7 +336,7 @@ public class LivroImplemente implements LivroService {
                                 value.getEditora().getNome(),
                                 generos(value.getGeneros()),
                                 autores(value.getAutores()),
-                                value.getArquivo().getCapa()
+                                value.getCapaUrl()
                         ))
                 .collect(Collectors
                         .toSet());
@@ -365,7 +366,7 @@ public class LivroImplemente implements LivroService {
                                 value.getEditora().getNome(),
                                 generos(value.getGeneros()),
                                 autores(value.getAutores()),
-                                value.getArquivo().getCapa()
+                                value.getCapaUrl()
                         ))
                 .collect(Collectors
                         .toSet());
