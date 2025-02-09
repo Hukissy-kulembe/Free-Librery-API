@@ -32,7 +32,6 @@ public class ArquivoController {
     public ResponseEntity<ArquivoOutput> uploadArquivo(@RequestParam MultipartFile capa,
                                                        @RequestParam MultipartFile arquivo) {
         ArquivoInput arquivoInput = new ArquivoInput(
-                capa,
                 arquivo
         );
 

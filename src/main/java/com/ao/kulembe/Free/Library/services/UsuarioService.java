@@ -15,5 +15,6 @@ public interface UsuarioService {
     UsuarioOutput buscarPorNome(String nome);
     UsuarioOutput atualizar(Long id, UsuarioInput usuarioInput);
     Set<LivroOutput> buscarLivrosDeUmUsuario(String usuario);
+    boolean verificarSenha(String email, String senha);
 
 }

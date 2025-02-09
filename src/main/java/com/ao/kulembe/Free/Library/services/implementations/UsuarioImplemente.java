@@ -126,4 +126,13 @@ public class UsuarioImplemente implements UsuarioService {
                         livro.getCapaUrl()
                 )).collect(Collectors.toSet());
     }
+
+    @Override
+    public boolean verificarSenha(String email, String senha) {
+        return usuarioRepository.findByEmail(email)
+                .get()
+                .getEmail()
+                .equals(senha);
+    }
+
 }
